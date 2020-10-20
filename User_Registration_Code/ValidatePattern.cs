@@ -10,7 +10,7 @@ namespace User_Registration_Code
         public string NAME = "^[A-Z][A-Za-z]{2,}$";
         public string EMAIL = "^[a-z0-9A-Z]+([._+-][a-z0-9A-Z]+)?[@][a-z0-9A-Z]+[.][a-zA-Z]{2,3}(.[a-zA-Z]{2})?$";
         public string PHONE_NO = "^[1-9]{2} [1-9]{1}[0-9]{9}$";
-        public string PASSWORD = "[0-9a-zA-Z]{8,}";
+        public string PASSWORD = "^(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,}$";
         public bool ValidateFirstName(string firstName)
         {
             return Regex.IsMatch(firstName, NAME);
