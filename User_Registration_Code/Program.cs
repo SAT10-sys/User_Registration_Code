@@ -33,6 +33,17 @@ namespace User_Registration_Code
                 Console.WriteLine("Please enter valid email id");
                 goto RegStart2;
             }
+        RegStart3:
+            Console.WriteLine("Enter Mobile Number in the following format--> country code, space, mobile number");
+            string phoneNo = Console.ReadLine();
+            bool checkPhoneNo = validatePattern.ValidateMobileNumber(phoneNo);
+            if(checkPhoneNo==true)
+                Console.WriteLine("MOBILE NUMBER: "+phoneNo);
+            else
+            {
+                Console.WriteLine("Please enter valid phone number");
+                goto RegStart3;
+            }
         }
     }
 }
