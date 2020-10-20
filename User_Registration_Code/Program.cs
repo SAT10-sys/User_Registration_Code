@@ -22,6 +22,17 @@ namespace User_Registration_Code
                 Console.WriteLine("Please enter valid name");
                 goto RegStart1;
             }
+        RegStart2:
+            Console.WriteLine("Enter Email ID");
+            string emailID = Console.ReadLine();
+            bool checkEmail = validatePattern.ValidateEmailID(emailID);
+            if(checkEmail==true)
+                Console.WriteLine("EMAIL ID: "+emailID);
+            else
+            {
+                Console.WriteLine("Please enter valid email id");
+                goto RegStart2;
+            }
         }
     }
 }
