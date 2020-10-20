@@ -44,6 +44,17 @@ namespace User_Registration_Code
                 Console.WriteLine("Please enter valid phone number");
                 goto RegStart3;
             }
+        RegStart4:
+            Console.WriteLine("Enter password(minimum 8 characters)");
+            string passWord = Console.ReadLine();
+            bool checkPassWord = validatePattern.ValidatePassword(passWord);
+            if(checkPassWord==true)
+                Console.WriteLine("PASSWORD: "+passWord);
+            else
+            {
+                Console.WriteLine("Please enter valid password");
+                goto RegStart4;
+            }
         }
     }
 }
