@@ -15,6 +15,7 @@ namespace User_Registration_Code
                 Console.WriteLine("Enter first name(should begin with capital letters and have minimum 3 letters)");
                 string firstName = Console.ReadLine();
                 result = validatePattern.ValidateFirstName(firstName);
+                Console.WriteLine(result);
             }
             catch(UserRegistrationCustomException e)
             {
@@ -27,6 +28,7 @@ namespace User_Registration_Code
                 Console.WriteLine("Enter last name(should begin with capital letters and have minimum 3 letters)");
                 string lastName = Console.ReadLine();
                 result = validatePattern.ValidateLastName(lastName);
+                Console.WriteLine(result);
             }
             catch(UserRegistrationCustomException e)
             {
@@ -39,6 +41,7 @@ namespace User_Registration_Code
                 Console.WriteLine("Enter email Id");
                 string emailId= Console.ReadLine();
                 result = validatePattern.ValidateEmailID(emailId);
+                Console.WriteLine(result);
             }
             catch (UserRegistrationCustomException e)
             {
@@ -51,6 +54,7 @@ namespace User_Registration_Code
                 Console.WriteLine("Enter mobile number");
                 string phoneNumber = Console.ReadLine();
                 result = validatePattern.ValidateMobileNumber(phoneNumber);
+                Console.WriteLine(result);
             }
             catch (UserRegistrationCustomException e)
             {
@@ -63,6 +67,7 @@ namespace User_Registration_Code
                 Console.WriteLine("Enter Password(at least 1 capital letter, at least 1 digit, at most 1 special character and at least 8 characters overall)");
                 string password = Console.ReadLine();
                 result = validatePattern.ValidatePassword(password);
+                Console.WriteLine(result);
             }
             catch(UserRegistrationCustomException e)
             {

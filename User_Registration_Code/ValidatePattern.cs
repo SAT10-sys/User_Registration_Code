@@ -1,50 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace User_Registration_Code
 {
     public class ValidatePattern
     {
-        public string NAME = "^[A-Z][A-Za-z]{2,}$";
-        public string EMAIL = "^[a-z0-9A-Z]+([._+-][a-z0-9A-Z]+)?[@][a-z0-9A-Z]+[.][a-zA-Z]{2,3}(.[a-zA-Z]{2})?$";
-        public string PHONE_NO = "^[1-9]{2} [1-9]{1}[0-9]{9}$";
-        public string PASSWORD = "^(?=.*[A-Z])(?=.*[0-9])(?=^[a-zA-Z0-9]*[!@#$%^&*()][a-zA-Z0-9]*$).{8,}$";
-        public string ValidateFirstName(string firstName)
-        {
-            if (Regex.IsMatch(firstName, NAME))
-                return "FIRST NAME IS VALID";
-            else
-                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_FIRST_NAME, "First Name Is Invalid");
-        }   
-        public string ValidateLastName(string lastName)
-        {
-            if (Regex.IsMatch(lastName, NAME))
-                return "LAST NAME IS VALID";
-            else
-                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_LAST_NAME, "Last Name Is Invalid");
-        }
-        public string ValidateEmailID(string emailID)
-        {
-            if (Regex.IsMatch(emailID, EMAIL))
-                return "EMAIL ID IS VALID";
-            else
-                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_EMAIL, "Email ID Is Invalid");
-        }
-        public string ValidateMobileNumber(string phoneNo)
-        {
-            if (Regex.IsMatch(phoneNo, PHONE_NO))
-                return "MOBILE NUMBER IS VALID";
-            else
-                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_PHONENO, "Mobile Number Is Invalid");
-        }
-        public string ValidatePassword(string passWord)
-        {
-            if (Regex.IsMatch(passWord, PASSWORD))
-                return "PASSWORD IS VALID";
-            else
-                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_PASSWORD, "Password Is Invalid");
-        }
+        const string FIRST_NAME = "^[A-Z][A-Za-z]{2,}$";
+        const string LAST_NAME = "^[A-Z][A-Za-z]{2,}$";
+        const string EMAIL = "^[a-z0-9A-Z]+([._+-][a-z0-9A-Z]+)?[@][a-z0-9A-Z]+[.][a-zA-Z]{2,3}(.[a-zA-Z]{2})?$";
+        const string PHONE_NO = "^[1-9]{2} [1-9]{1}[0-9]{9}$";
+        const string PASSWORD = "^(?=.*[A-Z])(?=.*[0-9])(?=^[a-zA-Z0-9]*[!@#$%^&*()][a-zA-Z0-9]*$).{8,}$";
+        public Func<string, string> ValidateFirstName = x => Regex.IsMatch(x, FIRST_NAME) ? "First Name is Valid" : throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_FIRST_NAME, "First Name is Invalid");
+        public Func<string, string> ValidateLastName = x => Regex.IsMatch(x, LAST_NAME) ? "Last Name is Valid" : throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_LAST_NAME, "Last Name is Invalid");
+        public Func<string, string> ValidateEmailID = x => Regex.IsMatch(x, EMAIL) ? "Email ID is Valid" : throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_EMAIL, "Email ID is invalid");
+        public Func<string, string> ValidateMobileNumber = x => Regex.IsMatch(x, PHONE_NO) ? "Phone Number is Valid" : throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_PHONENO, "Phone Number is Invalid");
+        public Func<string, string> ValidatePassword = x => Regex.IsMatch(x, PASSWORD) ? "Password is Valid" : throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_PASSWORD, "Password is Invalid");
+
     }
 }
