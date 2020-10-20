@@ -2,69 +2,130 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using User_Registration_Code;
 using System.Data;
 
-namespace User_Registration_Test
+namespace UserRegistrationTest
 {
     [TestClass]
     public class UnitTest1
     {
         [TestMethod]
-        [DataRow("Satantra",true)]
-        [DataRow("satantra",false)]
-        [DataRow("Sa",false)]
-        public void FirstNameShouldReturnExpectedResult(string firstName, bool expectedResult)
+
+        public void FirstNameShouldReturnFirstNameIsValid()
         {
             ValidatePattern validatePattern = new ValidatePattern();
-            bool result = validatePattern.ValidateFirstName(firstName);
-            Assert.AreEqual(expectedResult, result);
+            string firstName = "Satantra";
+
+            string result = validatePattern.ValidateFirstName(firstName);
+
+            Assert.AreEqual("First Name Is Valid", result);
+        }
+
+        [TestMethod]
+        [DataRow("satantra")]
+        [DataRow("sa")]
+        [DataRow("")]
+        public void FirstNameShouldReturnFirstNameIsInvalid(string firstName)
+        {
+            ValidatePattern validatePattern = new ValidatePattern();
+            try
+            {
+                validatePattern.ValidateFirstName(firstName);
+            }
+            catch (UserRegistrationCustomException e)
+            {
+                Assert.AreEqual("First Name Is Invalid", e.Message);
+            }
+        }
+
+        [TestMethod]
+        [DataRow("abc@gmail.com")]
+        [DataRow("abc@gmail.co.in")]
+        [DataRow("abc.xyz@gmail.com")]
+        [DataRow("abc.xyz.pqr@gmail.com")]
+        public void EmailShouldReturnEmailIdIsValid(string email)
+        {
+            ValidatePattern validatePattern = new ValidatePattern();
+
+            string result = validatePattern.ValidateEmailID(email);
+
+            Assert.AreEqual("Email Id Is Valid", result);
+        }
+
+        [TestMethod]
+        [DataRow("abc@gmail.co.in.au")]
+        [DataRow("abc@.com")]
+        [DataRow("abcgmail.com")]
+        [DataRow(".abc@gmail.com")]
+        public void ValidateEmailShouldReturnEmailIdIsInvalid(string eMail)
+        {
+            try
+            {
+                ValidatePattern validatePattern = new ValidatePattern();
+
+                string result = validatePattern.ValidateEmailID(eMail);
+            }
+            catch (UserRegistrationCustomException e)
+            {
+                Assert.AreEqual("Email Id Is Invalid", e.Message);
+            }
+        }
+
+        [TestMethod]
+        public void PhoneNoShouldReturnPhoneNoIsValid()
+        {
+            ValidatePattern validatePattern = new ValidatePattern();
+            string phoneNo = "91 8944921556";
+            string result = validatePattern.ValidateMobileNumber(phoneNo);
+
+            Assert.AreEqual("Phone No Is Valid", result);
+        }
+
+        [TestMethod]
+        [DataRow("12 0123456789")]
+        [DataRow("769876342135")]
+        [DataRow("34 123456")]
+        public void PhoneNoShouldReturnPhoneNoIsInvalid(string phoneNo)
+        {
+            try
+            {
+                ValidatePattern validatePattern = new ValidatePattern();
+
+                string result = validatePattern.ValidateMobileNumber(phoneNo);
+            }
+            catch (UserRegistrationCustomException e)
+            {
+                Assert.AreEqual("Phone No Is Invalid", e.Message);
+            }
         }
         [TestMethod]
-        [DataRow("Tewari", true)]
-        [DataRow("tewari",false)]
-        [DataRow("Te",false)]
-        public void LastNameShouldReturnExpectedResult(string lastName, bool expectedResult)
+        public void PasswordShouldReturnPasswordIsValid()
         {
             ValidatePattern validatePattern = new ValidatePattern();
-            bool result = validatePattern.ValidateLastName(lastName);
-            Assert.AreEqual(expectedResult, result);
+            string password = "A12$fgrt3";
+
+            string result = validatePattern.ValidatePassword(password);
+
+            Assert.AreEqual("Password Is Valid", result);
         }
+
         [TestMethod]
-        [DataRow("abc@gmail.com", true)]
-        [DataRow("abc@gmail.co.in", true)]
-        [DataRow("abc.xyz@gmail.com", true)]
-        [DataRow("abc.xyz.pqr@gmail.com", false)]
-        [DataRow("abc@gmail.co.in.au", false)]
-        [DataRow("abc@.com", false)]
-        [DataRow("abcgmail.com", false)]
-        [DataRow(".abc@gmail.com", false)]
-        public void EmailIDShouldReturnExpectedResult(string emailID, bool expectedResult)
+        [DataRow("123")]
+        [DataRow("abcd1234")]
+        [DataRow("@wert4r5")]
+        [DataRow("abc1R$f5#")]
+        [DataRow("123Abc$")]
+        public void PasswordShouldReturnIsInvalid(string password)
         {
-            ValidatePattern validatePattern = new ValidatePattern();
-            bool result = validatePattern.ValidateEmailID(emailID);
-            Assert.AreEqual(expectedResult, result);
-        }
-        [TestMethod]
-        [DataRow("91 8944921556", true)]
-        [DataRow("12 0876765432", false)]
-        [DataRow("769876342135", false)]
-        [DataRow("03 587676547", false)]
-        public void PhoneNoShouldReturnExpectedResult(string phoneNo, bool expectedResult)
-        {
-            ValidatePattern validatePattern = new ValidatePattern();
-            bool result = validatePattern.ValidateMobileNumber(phoneNo);
-            Assert.AreEqual(expectedResult, result);
-        }
-        [TestMethod]
-        [DataRow("A@1rty5g", true)]
-        [DataRow("abc", false)]
-        [DataRow("abcd1234", false)]
-        [DataRow("Asdab@abc", false)]
-        [DataRow("F1sd#rt", false)]
-        [DataRow("abc#v612#", false)]
-        public void PasswordShouldReturnExpectedResult(string passWord, bool expectedResult)
-        {
-            ValidatePattern validatePattern = new ValidatePattern();
-            bool result = validatePattern.ValidatePassword(passWord);
-            Assert.AreEqual(expectedResult, result);
+            try
+            {
+                ValidatePattern validatePattern = new ValidatePattern();
+
+                string result = validatePattern.ValidatePassword(password);
+            }
+            catch (UserRegistrationCustomException e)
+            {
+                Assert.AreEqual("Password Is Invalid", e.Message);
+            }
         }
     }
 }
+

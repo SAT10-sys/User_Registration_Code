@@ -11,25 +11,40 @@ namespace User_Registration_Code
         public string EMAIL = "^[a-z0-9A-Z]+([._+-][a-z0-9A-Z]+)?[@][a-z0-9A-Z]+[.][a-zA-Z]{2,3}(.[a-zA-Z]{2})?$";
         public string PHONE_NO = "^[1-9]{2} [1-9]{1}[0-9]{9}$";
         public string PASSWORD = "^(?=.*[A-Z])(?=.*[0-9])(?=^[a-zA-Z0-9]*[!@#$%^&*()][a-zA-Z0-9]*$).{8,}$";
-        public bool ValidateFirstName(string firstName)
+        public string ValidateFirstName(string firstName)
         {
-            return Regex.IsMatch(firstName, NAME);
+            if (Regex.IsMatch(firstName, NAME))
+                return "FIRST NAME IS VALID";
+            else
+                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_FIRST_NAME, "First Name Is Invalid");
+        }   
+        public string ValidateLastName(string lastName)
+        {
+            if (Regex.IsMatch(lastName, NAME))
+                return "LAST NAME IS VALID";
+            else
+                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_LAST_NAME, "Last Name Is Invalid");
         }
-        public bool ValidateLastName(string lastName)
+        public string ValidateEmailID(string emailID)
         {
-            return Regex.IsMatch(lastName, NAME);
+            if (Regex.IsMatch(emailID, EMAIL))
+                return "EMAIL ID IS VALID";
+            else
+                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_EMAIL, "Email ID Is Invalid");
         }
-        public bool ValidateEmailID(string emailID)
+        public string ValidateMobileNumber(string phoneNo)
         {
-            return Regex.IsMatch(emailID, EMAIL);
+            if (Regex.IsMatch(phoneNo, PHONE_NO))
+                return "MOBILE NUMBER IS VALID";
+            else
+                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_PHONENO, "Mobile Number Is Invalid");
         }
-        public bool ValidateMobileNumber(string phoneNo)
+        public string ValidatePassword(string passWord)
         {
-            return Regex.IsMatch(phoneNo, PHONE_NO);
-        }
-        public bool ValidatePassword(string passWord)
-        {
-            return Regex.IsMatch(passWord, PASSWORD);
+            if (Regex.IsMatch(passWord, PASSWORD))
+                return "PASSWORD IS VALID";
+            else
+                throw new UserRegistrationCustomException(UserRegistrationCustomException.ExceptionType.INVALID_PASSWORD, "Password Is Invalid");
         }
     }
 }
