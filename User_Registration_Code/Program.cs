@@ -12,11 +12,14 @@ namespace User_Registration_Code
             Console.WriteLine("Enter first name(should begin with capital letters and have minimum 3 letters)");
             string firstName = Console.ReadLine();
             bool checkFirstName = validatePattern.ValidateFirstName(firstName);
-            if(checkFirstName==true)
-                Console.WriteLine("FIRST NAME: "+firstName);
+            Console.WriteLine("Enter last name(should begin with capital letters and have minimum 3 letters)");
+            string lastName = Console.ReadLine();
+            bool checkLastName = validatePattern.ValidateLastName(lastName);
+            if (checkFirstName==true && checkLastName==true)
+                Console.WriteLine("NAME: "+firstName+" "+lastName);
             else
             {
-                Console.WriteLine("Please enter valid first name");
+                Console.WriteLine("Please enter valid name");
                 goto RegStart1;
             }
         }
